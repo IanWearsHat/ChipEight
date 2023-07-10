@@ -1,33 +1,60 @@
-import java.awt.Frame;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Color;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowAdapter;
 
-public class ChipEight extends Frame {
+public class ChipEight extends JPanel implements Runnable {
+    private static final long FRAME_DELAY = 1000/60L;
+    private static final int WIDTH = 800;
+    private static final int HEIGHT = 800;
+
+    Renderer renderer;
+
     public ChipEight() {
-        super("Chip8 Emulator");
-
-        setSize(500, 500);
-        setVisible(true);
-
-        addWindowListener(new WindowAdapter() {
-            public void windowClosing(WindowEvent e) {
-                dispose();
-                System.exit(0);
-            }
-        });
+        this.renderer = new Renderer(10);
     }
 
-    public void paint(Graphics g) {
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g); // clears the screen before every draw
         Graphics2D g2d = (Graphics2D) g;
 
-        g2d.setColor(Color.BLUE);
-        g2d.drawRect(75,75,300,200);
+        this.renderer.draw(g2d); // calls the renderer to handle rendering pixels
+    }
+
+    @Override
+    public void run() {
+        while (true) {
+            requestFocusInWindow(); 
+            repaint();
+            try {
+                Thread.sleep(FRAME_DELAY);
+            } catch (InterruptedException e) {
+            }
+        }
     }
 
     public static void main(String args[]) {
-        new ChipEight();
+        JFrame frame = new JFrame();
+        ChipEight chipEight = new ChipEight();
+
+        frame.add(chipEight);
+        frame.setTitle("Chip8 Emulator");
+        frame.setPreferredSize(new Dimension(WIDTH, HEIGHT));
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setVisible(true);
+        frame.pack();
+
+        chipEight.run();
+
+        frame.addWindowListener(new WindowAdapter() {
+            public void windowClosing(WindowEvent e) {
+                System.exit(0);
+            }
+        });
+        
     }
 }
