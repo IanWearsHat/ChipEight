@@ -54,7 +54,6 @@ public class Renderer {
         for (int i = 0; i < this.cols * this.rows; i++) {
             int x = (i % this.cols) * this.scale;
             int y = (int) (Math.floor(i / this.cols) * this.scale);
-            System.out.println(i);
 
             if (this.display[i] == 1) {
                 g.setColor(new Color(54, 56, 64));

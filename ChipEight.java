@@ -12,10 +12,14 @@ public class ChipEight extends JPanel implements Runnable {
     private static final int WIDTH = 800;
     private static final int HEIGHT = 800;
 
-    Renderer renderer;
+    private Renderer renderer;
+    private Keyboard keyboard;
 
     public ChipEight() {
         this.renderer = new Renderer(10);
+        this.keyboard = new Keyboard();
+
+        this.keyboard.bind(this);
     }
 
     public void paintComponent(Graphics g) {
@@ -28,8 +32,9 @@ public class ChipEight extends JPanel implements Runnable {
     @Override
     public void run() {
         while (true) {
-            requestFocusInWindow(); 
+            requestFocusInWindow();
             repaint();
+            // this.cpu.cycle();
             try {
                 Thread.sleep(FRAME_DELAY);
             } catch (InterruptedException e) {
