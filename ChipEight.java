@@ -35,6 +35,8 @@ public class ChipEight extends JPanel implements Runnable {
             requestFocusInWindow();
             repaint();
             // this.cpu.cycle();
+            this.keyboard.testKeys();
+
             try {
                 Thread.sleep(FRAME_DELAY);
             } catch (InterruptedException e) {
