@@ -14,10 +14,12 @@ public class ChipEight extends JPanel implements Runnable {
 
     private Renderer renderer;
     private Keyboard keyboard;
+    private Speaker speaker;
 
     public ChipEight() {
         this.renderer = new Renderer(10);
         this.keyboard = new Keyboard();
+        this.speaker = new Speaker();
 
         this.keyboard.bind(this);
     }
