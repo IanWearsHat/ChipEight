@@ -36,7 +36,7 @@ public class Renderer {
 
     public void testDraw() {
         this.setPixel(0, 0);
-        this.setPixel(64, 2);
+        this.setPixel(63, 31);
     }
 
     public void draw(Graphics2D g) {
