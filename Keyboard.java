@@ -35,17 +35,6 @@ public class Keyboard implements KeyListener {
         return this.keysPressed[keyCode];
     }
 
-    public void testKeys() {
-        System.out.print("\033[H\033[2J");
-        for (int i = 0; i < this.keysPressed.length; i++) {
-            if (i % 4 == 0) {
-                System.out.println();
-            }
-            System.out.print(this.keysPressed[i] + "\t");
-        }
-        System.out.flush();
-    }
-
     public void keyTyped(KeyEvent e) {
         if (e.getID() == KeyEvent.KEY_TYPED) {
             char c = e.getKeyChar();

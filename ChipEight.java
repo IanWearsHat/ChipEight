@@ -15,13 +15,18 @@ public class ChipEight extends JPanel implements Runnable {
     private Renderer renderer;
     private Keyboard keyboard;
     private Speaker speaker;
+    private CPU cpu;
 
     public ChipEight() {
         this.renderer = new Renderer(10);
         this.keyboard = new Keyboard();
         this.speaker = new Speaker();
+        this.cpu = new CPU(this.renderer, this.keyboard, this.speaker);
 
         this.keyboard.bind(this);
+
+        this.cpu.loadSpritesIntoMemory();
+        this.cpu.loadRom("C:\\Users\\ianbb\\Documents\\Code\\ChipEight\\roms\\PONG.ch8");
     }
 
     public void paintComponent(Graphics g) {
@@ -36,8 +41,7 @@ public class ChipEight extends JPanel implements Runnable {
         while (true) {
             requestFocusInWindow();
             repaint();
-            // this.cpu.cycle();
-            this.keyboard.testKeys();
+            this.cpu.cycle();
 
             try {
                 Thread.sleep(FRAME_DELAY);

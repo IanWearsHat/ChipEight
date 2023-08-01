@@ -20,19 +20,8 @@ public class Renderer {
 
     public boolean setPixel(int x, int y) {
         // if a pixel is out of bounds, wrap it around
-        if (x > this.cols) {
-            x -= this.cols;
-        }
-        else if (x < 0) {
-            x += this.cols;
-        }
-
-        if (y > this.rows) {
-            y -= this.rows;
-        }
-        else if (y < 0) {
-            y += this.rows;
-        }
+        x %= this.cols;
+        y %= this.rows;
 
         int pixelLoc = x + (y * this.cols);
 
